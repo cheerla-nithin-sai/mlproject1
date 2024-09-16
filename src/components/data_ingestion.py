@@ -9,6 +9,8 @@ from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 ## data injestion for getting and dealing and splitting the data
 
+from src.components.data_transformation import DataTransformation,DataTransformationConfig
+
 @dataclass
 class DataInjestionConfig:
     #  here we are saving data into differet csv file in folder name aftifacts
@@ -54,7 +56,12 @@ class DataInjestion:
         
 if __name__=="__main__":
     obj = DataInjestion()
-    obj.initiate_data_injestion()
+    train_data,test_data=obj.initiate_data_injestion()
+    
+    
+    # combining data injestion and data transfromation hereitself to check if data transformation is working or not 
+    data_transformation = DataTransformation()
+    data_transformation.initiate_data_transformation(train_data,test_data)
 
 
 
