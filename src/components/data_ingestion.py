@@ -10,6 +10,7 @@ from dataclasses import dataclass
 ## data injestion for getting and dealing and splitting the data
 
 from src.components.data_transformation import DataTransformation,DataTransformationConfig
+from src.components.model_trainer import ModelTrainer,ModelTrainingConfig
 
 @dataclass
 class DataInjestionConfig:
@@ -55,13 +56,15 @@ class DataInjestion:
             raise CustomException(e,sys)
         
 if __name__=="__main__":
+
     obj = DataInjestion()
     train_data,test_data=obj.initiate_data_injestion()
-    
-    
-    # combining data injestion and data transfromation hereitself to check if data transformation is working or not 
+
+    # combining data injestion and data transfromation here itself to check if data transformation is working or not 
     data_transformation = DataTransformation()
-    data_transformation.initiate_data_transformation(train_data,test_data)
-
-
+    train_arr_1,test_arr_1,paths=data_transformation.initiate_data_transformation(train_data,test_data)
+    # from data transformation we are getting train array, test array, path
+    # intializing model trainer
+    model_trainer = ModelTrainer()
+    print(model_trainer.initiate_model(train_arr_1,test_arr_1))
 
